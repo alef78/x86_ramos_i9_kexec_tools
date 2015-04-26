@@ -821,7 +821,12 @@ void setup_linux_system_parameters(struct kexec_info *info,
 				   struct x86_linux_param_header *real_mode)
 {
 	/* get subarch from running kernel */
-	setup_subarch(real_mode);
+	//setup_subarch(real_mode);
+
+	//it is not defined in standard linux kernel, only in modified kernels for Intel tablets
+#define X86_SUBARCH_INTEL_MID 3
+	real_mode->hardware_subarch = X86_SUBARCH_INTEL_MID;
+	
 	if (bzImage_support_efi_boot && !arch_options.noefi)
 		setup_efi_info(info, real_mode);
 	
